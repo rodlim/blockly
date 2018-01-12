@@ -1,20 +1,54 @@
-<script src="blockly_compressed.js"></script>
-<script src="blocks_compressed.js"></script>
-<script src="msg/js/pt-br.js"></script>
+<script src="blockly_lib/blockly_compressed.js"></script>
+<script src="blockly_lib/blocks_compressed.js"></script>
+<script src="blockly_lib/javascript_compressed.js"></script>
+<script src="blockly_lib/msg/js/en.js"></script>
 
-<div id="blocklyDiv" style="height: 480px; width: 600px;"></div>
+<script src="custom_blocks.js"></script>
 
-<xml id="toolbox" style="display: none">
-  <block type="controls_if"></block>
-  <block type="controls_repeat_ext"></block>
-  <block type="logic_compare"></block>
-  <block type="math_number"></block>
-  <block type="math_arithmetic"></block>
-  <block type="text"></block>
-  <block type="text_print"></block>
-</xml>
+<style>
+.container{
+    display: flex;
+}
+.fixed{
+    height: 480px;
+    width: 900px;
+}
+.flex-item{
+    flex-grow: 1;
+}
 
-<script>
-  var workspacePlayground = Blockly.inject('blocklyDiv',
-      {toolbox: document.getElementById('toolbox')});
-</script>
+.centerImage
+{
+  text-align:center;
+  display:block;
+}
+</style>
+
+<p style="text-align:center;"><img src="img/think_up_icon_1.jpg" height="100"></p>
+
+
+<div class="container">
+  <div id="blocklyDiv" class="fixed"></div>
+  <div id="arduino_code" class="flex-item"></div>
+</div>
+
+
+
+  <xml id="toolbox" style="display: none">
+    <block type="start"></block>
+    <block type="forward"></block>
+    <block type="right"></block>
+    <block type="left"></block>
+  </xml>
+
+  <script>
+    var workspacePlayground = Blockly.inject('blocklyDiv',
+        {toolbox: document.getElementById('toolbox')});
+
+    function showCode(){
+      var code = Blockly.JavaScript.workspaceToCode(workspacePlayground);
+
+    document.getElementById('arduino_code').innerHTML = code;
+  }
+  workspacePlayground.addChangeListener(showCode);
+  </script>
